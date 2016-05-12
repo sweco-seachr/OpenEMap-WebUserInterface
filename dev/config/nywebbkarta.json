@@ -103,6 +103,10 @@
         {
             "id": "Permalink",
             "type": "Permalink"
+        },
+        {
+            "id": "Altitude",
+            "type": "Altitude"
         }
     ],
     "layers": [
