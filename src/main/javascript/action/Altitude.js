@@ -50,7 +50,6 @@ Ext.define('OpenEMap.action.Altitude', {
           onClick: function(evt) {
               // Show graphhic for start loading
               mapPanel.setLoading(true);
-              console.log(layer);
               layer.destroyFeatures();
               if(popup){
                 popup.hide();
@@ -92,18 +91,14 @@ Ext.define('OpenEMap.action.Altitude', {
           width:200,
           html: "X och Y;" + coordinates,
           maximizable: true,
-          collapsible: true
+          collapsible: true,
+          listeners : {
+              close : function(){
+                  layer.removeAllFeatures();
+              }
+          }
       });
-        // unselect feature when the popup
-        // is closed
-        popup.on({
-            close: function() {
-                if(OpenLayers.Util.indexOf(vectorLayer.selectedFeatures,
-                                           this.feature) > -1) {
-                    selectCtrl.unselect(this.feature);
-                }
-            }
-        });
+
         popup.show();
     }
 
@@ -111,7 +106,6 @@ Ext.define('OpenEMap.action.Altitude', {
 
     layer.events.on({
         featureselected: function(e) {
-          console.log(e.feature);
             createPopup(e.feature);
         }
     });
